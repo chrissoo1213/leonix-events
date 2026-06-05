@@ -1,0 +1,202 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-geist-sans), 'Geist Fallback';
+  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  /* Custom LEONIX colors */
+  --color-navy: #071A35;
+  --color-navy-light: #0d2a4f;
+  --color-navy-dark: #040f1f;
+  --color-electric: #00AEEF;
+  --color-electric-light: #33c1f5;
+  --color-electric-dark: #0095d1;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* LEONIX EVENTS - Premium Telecom Theme */
+  --navy: #071A35;
+  --navy-light: #0d2a4f;
+  --navy-dark: #040f1f;
+  --electric: #00AEEF;
+  --electric-light: #33c1f5;
+  --electric-dark: #0095d1;
+  --glow: rgba(0, 174, 239, 0.3);
+  
+  --background: #071A35;
+  --foreground: #ffffff;
+  --card: rgba(13, 42, 79, 0.5);
+  --card-foreground: #ffffff;
+  --popover: #0d2a4f;
+  --popover-foreground: #ffffff;
+  --primary: #00AEEF;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(255, 255, 255, 0.1);
+  --secondary-foreground: #ffffff;
+  --muted: #0d2a4f;
+  --muted-foreground: rgba(255, 255, 255, 0.6);
+  --accent: #00AEEF;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --border: rgba(0, 174, 239, 0.2);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #00AEEF;
+  --chart-1: #00AEEF;
+  --chart-2: #33c1f5;
+  --chart-3: #66d4f8;
+  --chart-4: #0095d1;
+  --chart-5: #007bb3;
+  --radius: 0.75rem;
+  --sidebar: #0d2a4f;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #00AEEF;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(0, 174, 239, 0.1);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(0, 174, 239, 0.2);
+  --sidebar-ring: #00AEEF;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans scroll-smooth;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--navy);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--electric);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--electric-light);
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(13, 42, 79, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 174, 239, 0.15);
+}
+
+.glass-strong {
+  background: rgba(13, 42, 79, 0.7);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(0, 174, 239, 0.2);
+}
+
+/* Glow effects */
+.glow-electric {
+  box-shadow: 0 0 20px rgba(0, 174, 239, 0.3), 0 0 40px rgba(0, 174, 239, 0.1);
+}
+
+.glow-electric-strong {
+  box-shadow: 0 0 30px rgba(0, 174, 239, 0.5), 0 0 60px rgba(0, 174, 239, 0.2);
+}
+
+/* Text glow */
+.text-glow {
+  text-shadow: 0 0 20px rgba(0, 174, 239, 0.5), 0 0 40px rgba(0, 174, 239, 0.3);
+}
+
+/* Gradient backgrounds */
+.gradient-navy {
+  background: linear-gradient(180deg, #071A35 0%, #0d2a4f 100%);
+}
+
+.gradient-radial {
+  background: radial-gradient(ellipse at center, rgba(0, 174, 239, 0.1) 0%, transparent 70%);
+}
+
+/* Network animation keyframes */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes line-flow {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
