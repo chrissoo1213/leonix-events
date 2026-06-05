@@ -114,7 +114,7 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-4">
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/leonix-events/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-lg glass flex items-center justify-center text-white/60 hover:text-electric hover:bg-white/5 transition-all"

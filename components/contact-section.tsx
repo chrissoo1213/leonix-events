@@ -10,15 +10,44 @@ export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault()
+  setIsSubmitting(true)
+
+  const form = e.currentTarget
+
+  const formData = {
+    name: (form.elements.namedItem("name") as HTMLInputElement).value,
+    company: (form.elements.namedItem("company") as HTMLInputElement).value,
+    email: (form.elements.namedItem("email") as HTMLInputElement).value,
+    phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
+    location: (form.elements.namedItem("location") as HTMLInputElement).value,
+    date: (form.elements.namedItem("date") as HTMLInputElement).value,
+    requirements: (form.elements.namedItem("requirements") as HTMLTextAreaElement).value,
   }
 
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+
+    if (!response.ok) {
+      throw new Error("Failed to send")
+    }
+
+    setIsSubmitted(true)
+    form.reset()
+  } catch (error) {
+    alert("Failed to send request. Please try again.")
+    console.error(error)
+  } finally {
+    setIsSubmitting(false)
+  }
+}
   return (
     <section id="contact" className="relative py-24 sm:py-32 overflow-hidden">
       {/* Background */}
