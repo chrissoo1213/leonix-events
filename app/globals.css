@@ -39,13 +39,13 @@
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
-  /* Custom LEONIX colors */
-  --color-navy: #071A35;
-  --color-navy-light: #0d2a4f;
-  --color-navy-dark: #040f1f;
-  --color-electric: #00AEEF;
-  --color-electric-light: #33c1f5;
-  --color-electric-dark: #0095d1;
+  /* LEONIX brand colors — matched to logo */
+  --color-navy: #1A1A1A;
+  --color-navy-light: #2D2D2D;
+  --color-navy-dark: #000000;
+  --color-electric: #E30613;
+  --color-electric-light: #FF3333;
+  --color-electric-dark: #C00510;
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -56,47 +56,47 @@
 }
 
 :root {
-  /* LEONIX EVENTS - Premium Telecom Theme */
-  --navy: #071A35;
-  --navy-light: #0d2a4f;
-  --navy-dark: #040f1f;
-  --electric: #00AEEF;
-  --electric-light: #33c1f5;
-  --electric-dark: #0095d1;
-  --glow: rgba(0, 174, 239, 0.3);
-  
-  --background: #071A35;
-  --foreground: #ffffff;
-  --card: rgba(13, 42, 79, 0.5);
-  --card-foreground: #ffffff;
-  --popover: #0d2a4f;
-  --popover-foreground: #ffffff;
-  --primary: #00AEEF;
-  --primary-foreground: #ffffff;
-  --secondary: rgba(255, 255, 255, 0.1);
-  --secondary-foreground: #ffffff;
-  --muted: #0d2a4f;
-  --muted-foreground: rgba(255, 255, 255, 0.6);
-  --accent: #00AEEF;
-  --accent-foreground: #ffffff;
+  /* LEONIX EVENTS — logo palette: white, black, red */
+  --navy: #1A1A1A;
+  --navy-light: #2D2D2D;
+  --navy-dark: #000000;
+  --electric: #E30613;
+  --electric-light: #FF3333;
+  --electric-dark: #C00510;
+  --glow: rgba(227, 6, 19, 0.25);
+
+  --background: #FFFFFF;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A1A;
+  --primary: #E30613;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F5F5F5;
+  --secondary-foreground: #1A1A1A;
+  --muted: #F5F5F5;
+  --muted-foreground: #6B6B6B;
+  --accent: #E30613;
+  --accent-foreground: #FFFFFF;
   --destructive: #ef4444;
-  --border: rgba(0, 174, 239, 0.2);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #00AEEF;
-  --chart-1: #00AEEF;
-  --chart-2: #33c1f5;
-  --chart-3: #66d4f8;
-  --chart-4: #0095d1;
-  --chart-5: #007bb3;
+  --border: rgba(26, 26, 26, 0.1);
+  --input: rgba(26, 26, 26, 0.06);
+  --ring: #E30613;
+  --chart-1: #E30613;
+  --chart-2: #FF3333;
+  --chart-3: #C00510;
+  --chart-4: #1A1A1A;
+  --chart-5: #6B6B6B;
   --radius: 0.75rem;
-  --sidebar: #0d2a4f;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #00AEEF;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgba(0, 174, 239, 0.1);
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgba(0, 174, 239, 0.2);
-  --sidebar-ring: #00AEEF;
+  --sidebar: #F5F5F5;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-primary: #E30613;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(227, 6, 19, 0.08);
+  --sidebar-accent-foreground: #1A1A1A;
+  --sidebar-border: rgba(26, 26, 26, 0.1);
+  --sidebar-ring: #E30613;
 }
 
 @layer base {
@@ -117,7 +117,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--navy);
+  background: var(--muted);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -129,40 +129,55 @@
   background: var(--electric-light);
 }
 
-/* Glassmorphism utility */
+/* Light glassmorphism */
 .glass {
-  background: rgba(13, 42, 79, 0.4);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 174, 239, 0.15);
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  box-shadow: 0 4px 24px rgba(26, 26, 26, 0.06);
 }
 
 .glass-strong {
-  background: rgba(13, 42, 79, 0.7);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(30px);
-  border: 1px solid rgba(0, 174, 239, 0.2);
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  box-shadow: 0 8px 32px rgba(26, 26, 26, 0.08);
+}
+
+/* Dark section glass (footer, process) */
+.section-dark .glass,
+.section-dark .glass-strong {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
 }
 
 /* Glow effects */
 .glow-electric {
-  box-shadow: 0 0 20px rgba(0, 174, 239, 0.3), 0 0 40px rgba(0, 174, 239, 0.1);
+  box-shadow: 0 0 20px rgba(227, 6, 19, 0.2), 0 0 40px rgba(227, 6, 19, 0.08);
 }
 
 .glow-electric-strong {
-  box-shadow: 0 0 30px rgba(0, 174, 239, 0.5), 0 0 60px rgba(0, 174, 239, 0.2);
+  box-shadow: 0 0 30px rgba(227, 6, 19, 0.35), 0 0 60px rgba(227, 6, 19, 0.12);
 }
 
 /* Text glow */
 .text-glow {
-  text-shadow: 0 0 20px rgba(0, 174, 239, 0.5), 0 0 40px rgba(0, 174, 239, 0.3);
+  text-shadow: none;
 }
 
-/* Gradient backgrounds */
+/* Section backgrounds */
 .gradient-navy {
-  background: linear-gradient(180deg, #071A35 0%, #0d2a4f 100%);
+  background: linear-gradient(180deg, #F5F5F5 0%, #FFFFFF 100%);
+}
+
+.gradient-section-dark {
+  background: linear-gradient(180deg, #1A1A1A 0%, #000000 100%);
 }
 
 .gradient-radial {
-  background: radial-gradient(ellipse at center, rgba(0, 174, 239, 0.1) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(227, 6, 19, 0.06) 0%, transparent 70%);
 }
 
 /* Network animation keyframes */

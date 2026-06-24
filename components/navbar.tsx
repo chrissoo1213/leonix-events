@@ -1,22 +1,31 @@
 'use client'
 
+import { useLanguage } from '@/components/language-provider'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Zap } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
+import { Logo } from '@/components/logo'
+import { translations } from '@/lib/translations'
 
-const navItems = [
-  { label: 'Home', href: '#home' },
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Industries', href: '#industries' },
-  { label: 'References', href: '#references' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
-]
+
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { language, changeLanguage } = useLanguage()
+
+
+  const navItems = [
+    { label: translations[language].home, href: '#home' },
+    { label: translations[language].solutions, href: '#solutions' },
+    { label: translations[language].industries, href: '#industries' },
+    { label: translations[language].references, href: '#references' },
+    { label: translations[language].about, href: '#about' },
+    { label: translations[language].contact, href: '#contact' },
+  ]
+  
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,24 +41,14 @@ export function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'glass-strong py-3'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+            ? 'glass-strong py-3 shadow-sm'
             : 'bg-transparent py-5'
-        }`}
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link href="#home" className="flex items-center gap-2 group">
-              <div className="relative">
-                <Zap className="w-8 h-8 text-electric transition-all duration-300 group-hover:scale-110" />
-                <div className="absolute inset-0 w-8 h-8 bg-electric/30 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              <span className="text-xl font-bold text-white tracking-tight">
-                LEONIX <span className="text-electric">EVENTS</span>
-              </span>
-            </Link>
+            <Logo />
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">
@@ -57,7 +56,7 @@ export function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="text-sm font-medium text-white/80 hover:text-electric transition-colors duration-300 relative group"
+                  className="text-sm font-medium text-foreground/80 hover:text-electric transition-colors duration-300 relative group"
                 >
                   {item.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-electric transition-all duration-300 group-hover:w-full" />
@@ -66,20 +65,33 @@ export function Navbar() {
             </div>
 
             {/* CTA Button */}
-            <div className="hidden lg:block">
+            {/* CTA Button */}
+            <div className="hidden lg:flex items-center gap-4">
+
+              <button
+                onClick={() =>
+                  changeLanguage(language === 'fr' ? 'en' : 'fr')
+                }
+                className="px-3 py-2 rounded-lg border border-white/20 text-white hover:bg-white/10 transition"
+              >
+                {language === 'fr' ? 'EN' : 'FR'}
+              </button>
+
               <Link
                 href="#contact"
-                className="relative inline-flex items-center gap-2 px-6 py-2.5 bg-electric text-white font-semibold rounded-lg overflow-hidden group transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,174,239,0.5)]"
+                className="relative inline-flex items-center gap-2 px-6 py-2"
               >
-                <span className="relative z-10">Request a Quote</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-electric-light to-electric opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10">
+                  {translations[language].quote}
+                </span>
               </Link>
+
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-white hover:text-electric transition-colors"
+              className="lg:hidden p-2 text-foreground hover:text-electric transition-colors"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -110,7 +122,7 @@ export function Navbar() {
                     <Link
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="text-2xl font-medium text-white hover:text-electric transition-colors"
+                      className="text-2xl font-medium text-foreground hover:text-electric transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -124,9 +136,9 @@ export function Navbar() {
                   <Link
                     href="#contact"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="inline-flex items-center gap-2 px-8 py-3 bg-electric text-white font-semibold rounded-lg"
+                    className="inline-flex items-center gap-2 px-8 py-3 bg-electric text-white font-semibold rounded-lg hover:bg-electric-dark transition-colors"
                   >
-                    Request a Quote
+                    {translations[language].quote}
                   </Link>
                 </motion.div>
               </div>

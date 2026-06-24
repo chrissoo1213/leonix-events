@@ -38,8 +38,8 @@ function LogoCard({ reference, index }: { reference: typeof references[0]; index
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group"
     >
-      <div className="glass rounded-xl p-6 sm:p-8 h-full flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white/5 hover:border-electric/30 hover:scale-105">
-        <div className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-electric transition-colors">
+      <div className="glass rounded-xl p-6 sm:p-8 h-full flex flex-col items-center justify-center text-center transition-all duration-300 hover:border-electric/30 hover:scale-105">
+        <div className="text-lg sm:text-xl font-bold text-foreground mb-2 group-hover:text-electric transition-colors">
           {reference.name}
         </div>
         <div className="text-sm text-electric/70">{reference.category}</div>
@@ -62,11 +62,11 @@ function TestimonialCard({ testimonial, index }: { testimonial: typeof testimoni
     >
       <Quote className="w-10 h-10 text-electric/30 absolute top-6 left-6" />
       <div className="pt-8">
-        <p className="text-lg text-white/80 leading-relaxed mb-6 italic">
+        <p className="text-lg text-foreground/80 leading-relaxed mb-6 italic">
           &ldquo;{testimonial.quote}&rdquo;
         </p>
         <div>
-          <div className="font-semibold text-white">{testimonial.author}</div>
+          <div className="font-semibold text-foreground">{testimonial.author}</div>
           <div className="text-sm text-electric">{testimonial.company}</div>
         </div>
       </div>
@@ -96,10 +96,10 @@ export function ReferencesSection() {
           <span className="inline-block text-electric text-sm font-semibold tracking-wider uppercase mb-4">
             Our References
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 text-balance">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
             Trusted by Industry Leaders
           </h2>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             We&apos;re proud to have supported some of the most prestigious events in France and beyond.
           </p>
         </motion.div>

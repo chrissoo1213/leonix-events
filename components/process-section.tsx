@@ -93,9 +93,9 @@ export function ProcessSection() {
   const isInView = useInView(ref, { once: true })
 
   return (
-    <section className="relative py-24 sm:py-32 overflow-hidden">
+    <section className="section-dark relative py-24 sm:py-32 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-[#0a1f3d]" />
+      <div className="absolute inset-0 gradient-section-dark" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-electric/30 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-electric/30 to-transparent" />
 

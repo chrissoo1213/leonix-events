@@ -75,10 +75,10 @@ function IndustryCard({ industry, index }: { industry: typeof industries[0]; ind
         </div>
 
         {/* Content */}
-        <h3 className="relative text-xl font-semibold text-white mb-3 transition-colors group-hover:text-electric">
+        <h3 className="relative text-xl font-semibold text-foreground mb-3 transition-colors group-hover:text-electric">
           {industry.title}
         </h3>
-        <p className="relative text-white/60 leading-relaxed">
+        <p className="relative text-muted-foreground leading-relaxed">
           {industry.description}
         </p>
       </div>
@@ -93,7 +93,7 @@ export function IndustriesSection() {
   return (
     <section id="industries" className="relative py-24 sm:py-32 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-background" />
+      <div className="absolute inset-0 bg-muted" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-electric/30 to-transparent" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -108,10 +108,10 @@ export function IndustriesSection() {
           <span className="inline-block text-electric text-sm font-semibold tracking-wider uppercase mb-4">
             Industries We Serve
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 text-balance">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
             Trusted Across Diverse Sectors
           </h2>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             From fashion runways to music festivals, we deliver tailored connectivity solutions for every industry.
           </p>
         </motion.div>

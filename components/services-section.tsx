@@ -57,7 +57,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="group relative"
     >
-      <div className="glass rounded-2xl p-6 sm:p-8 h-full transition-all duration-500 hover:bg-white/5 hover:border-electric/40 hover:shadow-[0_0_40px_rgba(0,174,239,0.15)]">
+      <div className="glass rounded-2xl p-6 sm:p-8 h-full transition-all duration-500 hover:border-electric/30 hover:shadow-[0_0_40px_rgba(227,6,19,0.1)]">
         {/* Icon */}
         <div className="relative mb-6">
           <div className="w-14 h-14 rounded-xl bg-electric/10 flex items-center justify-center transition-all duration-300 group-hover:bg-electric/20 group-hover:scale-110">
@@ -67,10 +67,10 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
         </div>
 
         {/* Content */}
-        <h3 className="text-xl font-semibold text-white mb-3 transition-colors group-hover:text-electric">
+        <h3 className="text-xl font-semibold text-foreground mb-3 transition-colors group-hover:text-electric">
           {service.title}
         </h3>
-        <p className="text-white/60 leading-relaxed">
+        <p className="text-muted-foreground leading-relaxed">
           {service.description}
         </p>
 
@@ -103,10 +103,10 @@ export function ServicesSection() {
           <span className="inline-block text-electric text-sm font-semibold tracking-wider uppercase mb-4">
             Our Solutions
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 text-balance">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
             Enterprise-Grade Connectivity Solutions
           </h2>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Comprehensive telecommunications infrastructure designed for the unique demands of professional events.
           </p>
         </motion.div>

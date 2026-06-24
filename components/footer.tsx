@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { Zap, Mail, Phone, MapPin } from 'lucide-react'
+import { Mail, Phone, MapPin } from 'lucide-react'
+import { Logo } from '@/components/logo'
 
 const footerLinks = {
   solutions: [
@@ -29,22 +30,16 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="relative bg-[#040f1f] pt-16 pb-8">
-      {/* Top border */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-electric/30 to-transparent" />
+    <footer className="section-dark relative bg-navy pt-16 pb-8">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-electric/40 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 pb-12 border-b border-white/10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="#home" className="flex items-center gap-2 group mb-6">
-              <div className="relative">
-                <Zap className="w-8 h-8 text-electric" />
-              </div>
-              <span className="text-xl font-bold text-white tracking-tight">
-                LEONIX <span className="text-electric">EVENTS</span>
-              </span>
-            </Link>
+            <div className="mb-6 inline-block bg-white rounded-lg px-4 py-2">
+              <Logo href="#home" />
+            </div>
             <p className="text-white/60 mb-6 max-w-sm">
               French telecom operator specializing in temporary internet and network infrastructure for professional events.
             </p>

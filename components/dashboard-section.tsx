@@ -57,11 +57,11 @@ function MetricCard({ icon: Icon, label, value, suffix, color }: {
     >
       <div className="flex items-center gap-3 mb-3">
         <div className={`w-10 h-10 rounded-lg ${color} flex items-center justify-center`}>
-          <Icon className="w-5 h-5 text-white" />
+          <Icon className="w-5 h-5 text-electric" />
         </div>
-        <span className="text-sm text-white/60">{label}</span>
+        <span className="text-sm text-muted-foreground">{label}</span>
       </div>
-      <div className="text-2xl sm:text-3xl font-bold text-white">
+      <div className="text-2xl sm:text-3xl font-bold text-foreground">
         <AnimatedCounter end={value} suffix={suffix} />
       </div>
     </motion.div>
@@ -75,7 +75,7 @@ function StatusIndicator({ status, label }: { status: 'online' | 'active'; label
         <div className={`w-2 h-2 rounded-full ${status === 'online' ? 'bg-green-500' : 'bg-electric'}`} />
         <div className={`absolute inset-0 w-2 h-2 rounded-full ${status === 'online' ? 'bg-green-500' : 'bg-electric'} animate-ping`} />
       </div>
-      <span className="text-sm text-white/70">{label}</span>
+      <span className="text-sm text-muted-foreground">{label}</span>
     </div>
   )
 }
@@ -127,10 +127,10 @@ export function DashboardSection() {
           <span className="inline-block text-electric text-sm font-semibold tracking-wider uppercase mb-4">
             Live Operations
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 text-balance">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
             Real-Time Network Monitoring
           </h2>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Our Network Operations Center monitors all deployments 24/7, ensuring maximum uptime and rapid response.
           </p>
         </motion.div>
@@ -143,15 +143,15 @@ export function DashboardSection() {
           className="glass-strong rounded-3xl p-6 sm:p-8"
         >
           {/* Top bar */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-white/10">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-border">
             <div>
-              <h3 className="text-xl font-semibold text-white mb-2">Network Operations Center</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-2">Network Operations Center</h3>
               <div className="flex flex-wrap gap-4">
                 <StatusIndicator status="online" label="All Systems Operational" />
                 <StatusIndicator status="active" label="12 Active Deployments" />
               </div>
             </div>
-            <div className="flex items-center gap-2 text-sm text-white/60">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Clock className="w-4 h-4" />
               <span>Last updated: Just now</span>
             </div>
@@ -170,8 +170,8 @@ export function DashboardSection() {
           <div className="glass rounded-2xl p-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h4 className="font-semibold text-white">Network Throughput</h4>
-                <p className="text-sm text-white/60">Real-time bandwidth utilization</p>
+                <h4 className="font-semibold text-foreground">Network Throughput</h4>
+                <p className="text-sm text-muted-foreground">Real-time bandwidth utilization</p>
               </div>
               <div className="flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-green-500" />
@@ -200,8 +200,8 @@ export function DashboardSection() {
                   <item.icon className="w-5 h-5 text-electric" />
                 </div>
                 <div>
-                  <div className="text-lg font-bold text-white">{item.count}</div>
-                  <div className="text-xs text-white/60">{item.label}</div>
+                  <div className="text-lg font-bold text-foreground">{item.count}</div>
+                  <div className="text-xs text-muted-foreground">{item.label}</div>
                 </div>
               </motion.div>
             ))}

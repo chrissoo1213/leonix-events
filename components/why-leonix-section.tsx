@@ -1,4 +1,5 @@
 'use client'
+import { Satellite, Signal, Wifi, Shield } from 'lucide-react'
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
@@ -39,7 +40,7 @@ function BenefitItem({ benefit, index }: { benefit: typeof benefits[0]; index: n
       <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-electric/10 flex items-center justify-center transition-all duration-300 group-hover:bg-electric/20 group-hover:scale-110">
         <Icon className="w-5 h-5 text-electric" />
       </div>
-      <span className="text-white/80 font-medium group-hover:text-white transition-colors">
+      <span className="text-foreground/80 font-medium group-hover:text-foreground transition-colors">
         {benefit.text}
       </span>
     </motion.div>
@@ -93,8 +94,13 @@ function InfrastructureIllustration() {
       <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 400">
         {[0, 60, 120, 180, 240, 300].map((angle, index) => {
           const radius = 140
-          const x = 200 + Math.cos((angle * Math.PI) / 180) * radius
-          const y = 200 + Math.sin((angle * Math.PI) / 180) * radius
+          const x = Number(
+            (200 + Math.cos((angle * Math.PI) / 180) * radius).toFixed(4)
+          )
+          
+          const y = Number(
+            (200 + Math.sin((angle * Math.PI) / 180) * radius).toFixed(4)
+          )
 
           return (
             <motion.line
@@ -103,7 +109,7 @@ function InfrastructureIllustration() {
               y1="200"
               x2={x}
               y2={y}
-              stroke="rgba(0, 174, 239, 0.3)"
+              stroke="rgba(227, 6, 19, 0.25)"
               strokeWidth="1"
               strokeDasharray="5,5"
               initial={{ pathLength: 0 }}
@@ -131,7 +137,6 @@ function InfrastructureIllustration() {
   )
 }
 
-import { Satellite, Signal, Wifi, Shield } from 'lucide-react'
 
 export function WhyLeonixSection() {
   const ref = useRef(null)
@@ -140,8 +145,8 @@ export function WhyLeonixSection() {
   return (
     <section id="about" className="relative py-24 sm:py-32 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-[#0a1f3d]" />
-      <div className="absolute inset-0 gradient-radial opacity-30" />
+      <div className="absolute inset-0 bg-background" />
+      <div className="absolute inset-0 gradient-radial opacity-50" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -164,10 +169,10 @@ export function WhyLeonixSection() {
             <span className="inline-block text-electric text-sm font-semibold tracking-wider uppercase mb-4">
               Why Choose Us
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 text-balance">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
               Built for <span className="text-electric">Mission-Critical</span> Events
             </h2>
-            <p className="text-lg text-white/60 mb-10">
+            <p className="text-lg text-muted-foreground mb-10">
               With years of experience supporting high-profile events across France and internationally, 
               we deliver enterprise-grade connectivity that event organizers can rely on.
             </p>

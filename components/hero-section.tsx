@@ -1,9 +1,12 @@
 'use client'
 
+
 import { useEffect, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useLanguage } from '@/components/language-provider'
 import { ArrowRight, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
+
 
 function NetworkVisualization() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -36,7 +39,7 @@ function NetworkVisualization() {
     }
 
     const animate = () => {
-      ctx.fillStyle = 'rgba(7, 26, 53, 0.1)'
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.15)'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       nodes.forEach((node) => {
@@ -46,18 +49,16 @@ function NetworkVisualization() {
         if (node.x < 0 || node.x > canvas.width) node.vx *= -1
         if (node.y < 0 || node.y > canvas.height) node.vy *= -1
 
-        // Draw node
         ctx.beginPath()
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(0, 174, 239, 0.8)'
+        ctx.fillStyle = 'rgba(227, 6, 19, 0.6)'
         ctx.fill()
 
-        // Draw glow
         const gradient = ctx.createRadialGradient(
           node.x, node.y, 0,
           node.x, node.y, node.radius * 4
         )
-        gradient.addColorStop(0, 'rgba(0, 174, 239, 0.3)')
+        gradient.addColorStop(0, 'rgba(227, 6, 19, 0.2)')
         gradient.addColorStop(1, 'transparent')
         ctx.beginPath()
         ctx.arc(node.x, node.y, node.radius * 4, 0, Math.PI * 2)
@@ -65,7 +66,6 @@ function NetworkVisualization() {
         ctx.fill()
       })
 
-      // Draw connections
       nodes.forEach((node, i) => {
         nodes.slice(i + 1).forEach((other) => {
           const dist = Math.hypot(node.x - other.x, node.y - other.y)
@@ -73,7 +73,7 @@ function NetworkVisualization() {
             ctx.beginPath()
             ctx.moveTo(node.x, node.y)
             ctx.lineTo(other.x, other.y)
-            ctx.strokeStyle = `rgba(0, 174, 239, ${0.3 * (1 - dist / 150)})`
+            ctx.strokeStyle = `rgba(227, 6, 19, ${0.2 * (1 - dist / 150)})`
             ctx.lineWidth = 0.5
             ctx.stroke()
           }
@@ -94,7 +94,7 @@ function NetworkVisualization() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full"
-      style={{ opacity: 0.7 }}
+      style={{ opacity: 0.5 }}
     />
   )
 }
@@ -111,28 +111,25 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
       transition={{ duration: 0.6, delay }}
       className="text-center"
     >
-      <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-electric text-glow">
+      <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-electric">
         {value}
       </div>
-      <div className="text-xs sm:text-sm text-white/60 mt-1">{label}</div>
+      <div className="text-xs sm:text-sm text-muted-foreground mt-1">{label}</div>
     </motion.div>
   )
 }
 
 export function HeroSection() {
+  const { language } = useLanguage()
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
       <div className="absolute inset-0 bg-background" />
       <NetworkVisualization />
-      
-      {/* Radial gradient overlay */}
       <div className="absolute inset-0 gradient-radial" />
-      
-      {/* Content */}
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
         <div className="text-center">
-          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -140,32 +137,43 @@ export function HeroSection() {
             className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-electric animate-pulse" />
-            <span className="text-sm text-white/80">French Telecom Operator</span>
+            <span className="text-sm text-foreground/80">
+  {language === 'fr'
+    ? 'Opérateur Télécom Français'
+    : 'French Telecom Operator'}
+</span>
           </motion.div>
 
-          {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight max-w-5xl mx-auto text-balance"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight max-w-5xl mx-auto text-balance"
           >
-            Temporary Internet Solutions for{' '}
-            <span className="text-electric text-glow">Mission-Critical</span> Events
+            {language === 'fr' ? (
+  <>
+    Solutions Internet Temporaires pour les{' '}
+    <span className="text-electric">Événements Critiques</span>
+  </>
+) : (
+  <>
+    Temporary Internet Solutions for{' '}
+    <span className="text-electric">Mission-Critical</span> Events
+  </>
+)}
           </motion.h1>
 
-          {/* Subheadline */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg sm:text-xl text-white/70 mt-6 max-w-3xl mx-auto leading-relaxed text-pretty"
+            className="text-lg sm:text-xl text-muted-foreground mt-6 max-w-3xl mx-auto leading-relaxed text-pretty"
           >
-            Fiber, Satellite, 4G/5G Aggregation, WiFi, VoIP and Network Infrastructure 
-            for Professional Events Across France and Beyond.
+            {language === 'fr'
+  ? 'Fibre, Satellite, Agrégation 4G/5G, WiFi, VoIP et Infrastructure Réseau pour les événements professionnels en France et à l’international.'
+  : 'Fiber, Satellite, 4G/5G Aggregation, WiFi, VoIP and Network Infrastructure for Professional Events Across France and Beyond.'}
           </motion.p>
 
-          {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -174,22 +182,24 @@ export function HeroSection() {
           >
             <Link
               href="#contact"
-              className="group relative inline-flex items-center gap-2 px-8 py-4 bg-electric text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,174,239,0.5)] hover:scale-105"
+              className="group relative inline-flex items-center gap-2 px-8 py-4 bg-electric text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(227,6,19,0.35)] hover:bg-electric-dark hover:scale-105"
             >
-              <span className="relative z-10">Request a Quote</span>
+              <span className="relative z-10">{language === 'fr'
+  ? 'Demander un devis'
+  : 'Request a Quote'}</span>
               <ArrowRight className="w-5 h-5 relative z-10 transition-transform group-hover:translate-x-1" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#33c1f5] to-electric opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
             <Link
               href="#contact"
-              className="group inline-flex items-center gap-2 px-8 py-4 glass text-white font-semibold rounded-xl transition-all duration-300 hover:bg-white/10"
+              className="group inline-flex items-center gap-2 px-8 py-4 glass text-foreground font-semibold rounded-xl transition-all duration-300 hover:border-electric/30"
             >
               <MessageCircle className="w-5 h-5" />
-              <span>Talk to an Expert</span>
+              <span>{language === 'fr'
+  ? 'Parler à un expert'
+  : 'Talk to an Expert'}</span>
             </Link>
           </motion.div>
 
-          {/* Stats */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -197,16 +207,34 @@ export function HeroSection() {
             className="mt-16 sm:mt-20"
           >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 max-w-4xl mx-auto glass rounded-2xl p-6 sm:p-8">
-              <AnimatedStat value="99.99%" label="Network Availability" delay={1.2} />
-              <AnimatedStat value="24/7" label="Monitoring" delay={1.4} />
-              <AnimatedStat value="100%" label="Nationwide Coverage" delay={1.6} />
-              <AnimatedStat value="4h" label="Rapid Deployment" delay={1.8} />
+            <AnimatedStat
+  value="99.99%"
+  label={language === 'fr' ? 'Disponibilité Réseau' : 'Network Availability'}
+  delay={1.2}
+/>
+
+<AnimatedStat
+  value="24/7"
+  label={language === 'fr' ? 'Supervision' : 'Monitoring'}
+  delay={1.4}
+/>
+
+<AnimatedStat
+  value="100%"
+  label={language === 'fr' ? 'Couverture Nationale' : 'Nationwide Coverage'}
+  delay={1.6}
+/>
+
+<AnimatedStat
+  value="4h"
+  label={language === 'fr' ? 'Déploiement Rapide' : 'Rapid Deployment'}
+  delay={1.8}
+/>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   )
