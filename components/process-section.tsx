@@ -10,44 +10,41 @@ import {
   HeadphonesIcon, 
   CheckCircle2 
 } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
+import { translations } from '@/lib/translations'
 
 const steps = [
   {
     icon: MessageSquare,
-    title: 'Consultation',
-    description: 'We analyze your event requirements and connectivity needs.',
+    key: 'processConsultation',
   },
   {
     icon: PenTool,
-    title: 'Network Design',
-    description: 'Custom network architecture tailored to your venue and event.',
+    key: 'processDesign',
   },
   {
     icon: Truck,
-    title: 'Deployment',
-    description: 'Professional installation of all equipment and infrastructure.',
+    key: 'processDeployment',
   },
   {
     icon: Eye,
-    title: 'Monitoring',
-    description: '24/7 network monitoring from our operations center.',
+    key: 'processMonitoring',
   },
   {
     icon: HeadphonesIcon,
-    title: 'On-Site Support',
-    description: 'Dedicated technicians available throughout your event.',
+    key: 'processSupport',
   },
   {
     icon: CheckCircle2,
-    title: 'Event Completion',
-    description: 'Seamless dismantling and comprehensive reporting.',
+    key: 'processCompletion',
   },
 ]
 
-function TimelineStep({ step, index, isLast }: { step: typeof steps[0]; index: number; isLast: boolean }) {
+function TimelineStep({ step, index, isLast, language }: { step: typeof steps[0]; index: number; isLast: boolean; language: 'fr' | 'en' }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
   const Icon = step.icon
+  const copy = translations[language]
 
   return (
     <motion.div
@@ -79,10 +76,10 @@ function TimelineStep({ step, index, isLast }: { step: typeof steps[0]; index: n
 
       {/* Content */}
       <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-electric transition-colors">
-        {step.title}
+        {copy[step.key + 'Title' as keyof typeof copy]}
       </h3>
       <p className="text-sm text-white/60 max-w-[200px]">
-        {step.description}
+        {copy[step.key + 'Desc' as keyof typeof copy]}
       </p>
     </motion.div>
   )
@@ -91,6 +88,8 @@ function TimelineStep({ step, index, isLast }: { step: typeof steps[0]; index: n
 export function ProcessSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+  const { language } = useLanguage()
+  const copy = translations[language]
 
   return (
     <section className="section-dark relative py-24 sm:py-32 overflow-hidden">
@@ -109,13 +108,13 @@ export function ProcessSection() {
           className="text-center mb-16"
         >
           <span className="inline-block text-electric text-sm font-semibold tracking-wider uppercase mb-4">
-            Our Process
+            {copy.processLabel}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 text-balance">
-            Seamless Network Deployment
+            {copy.processTitle}
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto">
-            From initial consultation to event completion, we handle every aspect of your connectivity needs.
+            {copy.processSubtitle}
           </p>
         </motion.div>
 
@@ -123,10 +122,11 @@ export function ProcessSection() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-4">
           {steps.map((step, index) => (
             <TimelineStep 
-              key={step.title} 
+              key={step.key} 
               step={step} 
               index={index} 
               isLast={index === steps.length - 1} 
+              language={language}
             />
           ))}
         </div>

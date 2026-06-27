@@ -10,50 +10,47 @@ import {
   Shield, 
   Palette 
 } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
+import { translations } from '@/lib/translations'
 
 const industries = [
   {
     icon: Sparkles,
-    title: 'Fashion & Luxury',
-    description: 'Supporting prestigious fashion shows and luxury brand events with seamless connectivity.',
+    key: 'industryFashion',
     gradient: 'from-pink-500/20 to-purple-500/20',
   },
   {
     icon: Trophy,
-    title: 'Sports Events',
-    description: 'Live streaming, media coverage, and real-time data for sporting competitions.',
+    key: 'industrySports',
     gradient: 'from-green-500/20 to-emerald-500/20',
   },
   {
     icon: Music,
-    title: 'Music Festivals',
-    description: 'High-capacity networks for thousands of festival attendees and backstage operations.',
+    key: 'industryMusic',
     gradient: 'from-orange-500/20 to-red-500/20',
   },
   {
     icon: Building2,
-    title: 'Corporate Events',
-    description: 'Reliable infrastructure for conferences, trade shows, and executive summits.',
+    key: 'industryCorporate',
     gradient: 'from-blue-500/20 to-cyan-500/20',
   },
   {
     icon: Shield,
-    title: 'Government Organizations',
-    description: 'Secure, encrypted communications for official events and operations.',
+    key: 'industryGovernment',
     gradient: 'from-slate-500/20 to-gray-500/20',
   },
   {
     icon: Palette,
-    title: 'Cultural Events',
-    description: 'Supporting art exhibitions, museum events, and cultural festivals.',
+    key: 'industryCulture',
     gradient: 'from-violet-500/20 to-indigo-500/20',
   },
 ]
 
-function IndustryCard({ industry, index }: { industry: typeof industries[0]; index: number }) {
+function IndustryCard({ industry, index, language }: { industry: typeof industries[0]; index: number; language: 'fr' | 'en' }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-50px' })
   const Icon = industry.icon
+  const copy = translations[language]
 
   return (
     <motion.div
@@ -76,10 +73,10 @@ function IndustryCard({ industry, index }: { industry: typeof industries[0]; ind
 
         {/* Content */}
         <h3 className="relative text-xl font-semibold text-foreground mb-3 transition-colors group-hover:text-electric">
-          {industry.title}
+          {copy[industry.key + 'Title' as keyof typeof copy]}
         </h3>
         <p className="relative text-muted-foreground leading-relaxed">
-          {industry.description}
+          {copy[industry.key + 'Desc' as keyof typeof copy]}
         </p>
       </div>
     </motion.div>
@@ -89,6 +86,8 @@ function IndustryCard({ industry, index }: { industry: typeof industries[0]; ind
 export function IndustriesSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+  const { language } = useLanguage()
+  const copy = translations[language]
 
   return (
     <section id="industries" className="relative py-24 sm:py-32 overflow-hidden">
@@ -106,20 +105,20 @@ export function IndustriesSection() {
           className="text-center mb-16"
         >
           <span className="inline-block text-electric text-sm font-semibold tracking-wider uppercase mb-4">
-            Industries We Serve
+            {copy.industriesLabel}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
-            Trusted Across Diverse Sectors
+            {copy.industriesTitle}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            From fashion runways to music festivals, we deliver tailored connectivity solutions for every industry.
+            {copy.industriesSubtitle}
           </p>
         </motion.div>
 
         {/* Industries Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {industries.map((industry, index) => (
-            <IndustryCard key={industry.title} industry={industry} index={index} />
+            <IndustryCard key={industry.key} industry={industry} index={index} language={language} />
           ))}
         </div>
       </div>

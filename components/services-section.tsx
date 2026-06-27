@@ -10,44 +10,41 @@ import {
   Phone, 
   Shield 
 } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
+import { translations } from '@/lib/translations'
 
 const services = [
   {
     icon: Globe,
-    title: 'Fiber Optic Internet',
-    description: 'Dedicated high-speed connectivity with guaranteed bandwidth for your most demanding events.',
+    key: 'serviceFiber',
   },
   {
     icon: Signal,
-    title: '4G/5G Aggregation',
-    description: 'Reliable internet through bonded cellular connections, ensuring redundancy and high availability.',
+    key: 'service4g',
   },
   {
     icon: Satellite,
-    title: 'Satellite Internet',
-    description: 'Connectivity anywhere, even in the most remote areas. Perfect for outdoor events.',
+    key: 'serviceSatellite',
   },
   {
     icon: Wifi,
-    title: 'Event WiFi',
-    description: 'Scalable secure WiFi for guests, staff, and media with custom SSIDs and captive portals.',
+    key: 'serviceWifi',
   },
   {
     icon: Phone,
-    title: 'VoIP Communications',
-    description: 'Professional voice solutions with dedicated phone lines and call routing.',
+    key: 'serviceVoip',
   },
   {
     icon: Shield,
-    title: 'Access Control & Surveillance',
-    description: 'Temporary security and monitoring systems with real-time video feeds and access management.',
+    key: 'serviceSecurity',
   },
 ]
 
-function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
+function ServiceCard({ service, index, language }: { service: typeof services[0]; index: number; language: 'fr' | 'en' }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-50px' })
   const Icon = service.icon
+  const copy = translations[language]
 
   return (
     <motion.div
@@ -68,10 +65,10 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
 
         {/* Content */}
         <h3 className="text-xl font-semibold text-foreground mb-3 transition-colors group-hover:text-electric">
-          {service.title}
+          {copy[service.key + 'Title' as keyof typeof copy]}
         </h3>
         <p className="text-muted-foreground leading-relaxed">
-          {service.description}
+          {copy[service.key + 'Desc' as keyof typeof copy]}
         </p>
 
         {/* Hover line */}
@@ -84,6 +81,8 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
 export function ServicesSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+  const { language } = useLanguage()
+  const copy = translations[language]
 
   return (
     <section id="solutions" className="relative py-24 sm:py-32 overflow-hidden">
@@ -101,20 +100,20 @@ export function ServicesSection() {
           className="text-center mb-16"
         >
           <span className="inline-block text-electric text-sm font-semibold tracking-wider uppercase mb-4">
-            Our Solutions
+            {copy.servicesLabel}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
-            Enterprise-Grade Connectivity Solutions
+            {copy.servicesTitle}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Comprehensive telecommunications infrastructure designed for the unique demands of professional events.
+            {copy.servicesSubtitle}
           </p>
         </motion.div>
 
         {/* Services Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
-            <ServiceCard key={service.title} service={service} index={index} />
+            <ServiceCard key={service.key} service={service} index={index} language={language} />
           ))}
         </div>
       </div>

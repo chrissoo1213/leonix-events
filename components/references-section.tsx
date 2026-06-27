@@ -3,32 +3,31 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Quote } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
+import { translations } from '@/lib/translations'
 
 const references = [
-  { name: 'Paris Fashion Week', category: 'Fashion' },
-  { name: 'Paris Games Week', category: 'Gaming' },
-  { name: 'Solidays', category: 'Festival' },
-  { name: 'LVMH', category: 'Luxury' },
-  { name: 'Ministry of Armed Forces', category: 'Government' },
-  { name: 'Chantilly Jumping', category: 'Sports' },
+  { key: 'referenceFashion', category: 'Fashion' },
+  { key: 'referenceGaming', category: 'Gaming' },
+  { key: 'referenceFestival', category: 'Festival' },
+  { key: 'referenceLuxury', category: 'Luxury' },
+  { key: 'referenceGovernment', category: 'Government' },
+  { key: 'referenceSports', category: 'Sports' },
 ]
 
 const testimonials = [
   {
-    quote: "LEONIX EVENTS delivered flawless connectivity for our fashion show. Zero downtime during our most critical moments.",
-    author: "Production Director",
-    company: "Paris Fashion Week",
+    key: 'testimonial1',
   },
   {
-    quote: "Their team&apos;s professionalism and technical expertise exceeded our expectations. A true partner for large-scale events.",
-    author: "Event Manager",
-    company: "Major Music Festival",
+    key: 'testimonial2',
   },
 ]
 
-function LogoCard({ reference, index }: { reference: typeof references[0]; index: number }) {
+function LogoCard({ reference, index, language }: { reference: typeof references[0]; index: number; language: 'fr' | 'en' }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+  const copy = translations[language]
 
   return (
     <motion.div
@@ -40,7 +39,7 @@ function LogoCard({ reference, index }: { reference: typeof references[0]; index
     >
       <div className="glass rounded-xl p-6 sm:p-8 h-full flex flex-col items-center justify-center text-center transition-all duration-300 hover:border-electric/30 hover:scale-105">
         <div className="text-lg sm:text-xl font-bold text-foreground mb-2 group-hover:text-electric transition-colors">
-          {reference.name}
+          {copy[reference.key as keyof typeof copy]}
         </div>
         <div className="text-sm text-electric/70">{reference.category}</div>
       </div>
@@ -48,9 +47,10 @@ function LogoCard({ reference, index }: { reference: typeof references[0]; index
   )
 }
 
-function TestimonialCard({ testimonial, index }: { testimonial: typeof testimonials[0]; index: number }) {
+function TestimonialCard({ testimonial, index, language }: { testimonial: typeof testimonials[0]; index: number; language: 'fr' | 'en' }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+  const copy = translations[language]
 
   return (
     <motion.div
@@ -63,11 +63,11 @@ function TestimonialCard({ testimonial, index }: { testimonial: typeof testimoni
       <Quote className="w-10 h-10 text-electric/30 absolute top-6 left-6" />
       <div className="pt-8">
         <p className="text-lg text-foreground/80 leading-relaxed mb-6 italic">
-          &ldquo;{testimonial.quote}&rdquo;
+          &ldquo;{copy[testimonial.key + 'Quote' as keyof typeof copy]}&rdquo;
         </p>
         <div>
-          <div className="font-semibold text-foreground">{testimonial.author}</div>
-          <div className="text-sm text-electric">{testimonial.company}</div>
+          <div className="font-semibold text-foreground">{copy[testimonial.key + 'Author' as keyof typeof copy]}</div>
+          <div className="text-sm text-electric">{copy[testimonial.key + 'Company' as keyof typeof copy]}</div>
         </div>
       </div>
     </motion.div>
@@ -77,6 +77,8 @@ function TestimonialCard({ testimonial, index }: { testimonial: typeof testimoni
 export function ReferencesSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+  const { language } = useLanguage()
+  const copy = translations[language]
 
   return (
     <section id="references" className="relative py-24 sm:py-32 overflow-hidden">
@@ -94,27 +96,27 @@ export function ReferencesSection() {
           className="text-center mb-16"
         >
           <span className="inline-block text-electric text-sm font-semibold tracking-wider uppercase mb-4">
-            Our References
+            {copy.referencesLabel}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
-            Trusted by Industry Leaders
+            {copy.referencesTitle}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We&apos;re proud to have supported some of the most prestigious events in France and beyond.
+            {copy.referencesSubtitle}
           </p>
         </motion.div>
 
         {/* Logo Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
           {references.map((reference, index) => (
-            <LogoCard key={reference.name} reference={reference} index={index} />
+            <LogoCard key={reference.key} reference={reference} index={index} language={language} />
           ))}
         </div>
 
         {/* Testimonials */}
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {testimonials.map((testimonial, index) => (
-            <TestimonialCard key={index} testimonial={testimonial} index={index} />
+            <TestimonialCard key={testimonial.key} testimonial={testimonial} index={index} language={language} />
           ))}
         </div>
       </div>

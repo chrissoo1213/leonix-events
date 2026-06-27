@@ -2,6 +2,8 @@
 
 import { useRef, useEffect, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useLanguage } from '@/components/language-provider'
+import { translations } from '@/lib/translations'
 import { 
   Activity, 
   Wifi, 
@@ -108,6 +110,8 @@ function NetworkGraph() {
 export function DashboardSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+  const { language } = useLanguage()
+  const copy = translations[language]
 
   return (
     <section className="relative py-24 sm:py-32 overflow-hidden">
@@ -125,13 +129,13 @@ export function DashboardSection() {
           className="text-center mb-16"
         >
           <span className="inline-block text-electric text-sm font-semibold tracking-wider uppercase mb-4">
-            Live Operations
+            {copy.dashboardLabel}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
-            Real-Time Network Monitoring
+            {copy.dashboardTitle}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Our Network Operations Center monitors all deployments 24/7, ensuring maximum uptime and rapid response.
+            {copy.dashboardSubtitle}
           </p>
         </motion.div>
 
@@ -145,37 +149,37 @@ export function DashboardSection() {
           {/* Top bar */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-border">
             <div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">Network Operations Center</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-2">{copy.dashboardNocTitle}</h3>
               <div className="flex flex-wrap gap-4">
-                <StatusIndicator status="online" label="All Systems Operational" />
-                <StatusIndicator status="active" label="12 Active Deployments" />
+                <StatusIndicator status="online" label={copy.dashboardOperational} />
+                <StatusIndicator status="active" label={copy.dashboardDeployments} />
               </div>
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Clock className="w-4 h-4" />
-              <span>Last updated: Just now</span>
+              <span>{copy.dashboardUpdated}</span>
             </div>
           </div>
 
           {/* Metrics Grid */}
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-            <MetricCard icon={Activity} label="Uptime" value={99} suffix=".99%" color="bg-green-500/20" />
-            <MetricCard icon={Clock} label="Response Time" value={24} suffix="/7" color="bg-electric/20" />
-            <MetricCard icon={MapPin} label="Coverage" value={100} suffix="%" color="bg-blue-500/20" />
-            <MetricCard icon={Zap} label="Deployment" value={4} suffix="h" color="bg-yellow-500/20" />
-            <MetricCard icon={Shield} label="Security" value={100} suffix="%" color="bg-purple-500/20" />
+            <MetricCard icon={Activity} label={copy.metricUptime} value={99} suffix=".99%" color="bg-green-500/20" />
+            <MetricCard icon={Clock} label={copy.metricResponse} value={24} suffix="/7" color="bg-electric/20" />
+            <MetricCard icon={MapPin} label={copy.metricCoverage} value={100} suffix="%" color="bg-blue-500/20" />
+            <MetricCard icon={Zap} label={copy.metricDeployment} value={4} suffix="h" color="bg-yellow-500/20" />
+            <MetricCard icon={Shield} label={copy.metricSecurity} value={100} suffix="%" color="bg-purple-500/20" />
           </div>
 
           {/* Network Activity Graph */}
           <div className="glass rounded-2xl p-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h4 className="font-semibold text-foreground">Network Throughput</h4>
-                <p className="text-sm text-muted-foreground">Real-time bandwidth utilization</p>
+                <h4 className="font-semibold text-foreground">{copy.throughputTitle}</h4>
+                <p className="text-sm text-muted-foreground">{copy.throughputSubtitle}</p>
               </div>
               <div className="flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-green-500" />
-                <span className="text-sm text-green-500">+12% this hour</span>
+                <span className="text-sm text-green-500">{copy.throughputTrend}</span>
               </div>
             </div>
             <NetworkGraph />
@@ -184,10 +188,10 @@ export function DashboardSection() {
           {/* Active Systems */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
             {[
-              { icon: Wifi, label: 'WiFi Access Points', count: 156, status: 'Active' },
-              { icon: Server, label: 'Edge Servers', count: 24, status: 'Online' },
-              { icon: Shield, label: 'Firewalls', count: 12, status: 'Secured' },
-              { icon: CheckCircle, label: 'Backup Links', count: 8, status: 'Standby' },
+              { icon: Wifi, label: copy.wifiAccessPoints, count: 156, status: 'Active' },
+              { icon: Server, label: copy.edgeServers, count: 24, status: 'Online' },
+              { icon: Shield, label: copy.firewalls, count: 12, status: 'Secured' },
+              { icon: CheckCircle, label: copy.backupLinks, count: 8, status: 'Standby' },
             ].map((item, index) => (
               <motion.div
                 key={item.label}

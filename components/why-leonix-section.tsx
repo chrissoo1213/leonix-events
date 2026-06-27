@@ -13,21 +13,24 @@ import {
   Network, 
   Globe 
 } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
+import { translations } from '@/lib/translations'
 
 const benefits = [
-  { icon: Users, text: 'Expert telecom engineers' },
-  { icon: HeadphonesIcon, text: 'Dedicated support teams' },
-  { icon: MapPin, text: 'On-site assistance' },
-  { icon: Activity, text: 'Proactive monitoring' },
-  { icon: Server, text: 'High availability architecture' },
-  { icon: Network, text: 'Dedicated fiber infrastructure' },
-  { icon: Globe, text: 'International deployment capability' },
+  { icon: Users, key: 'benefitExpert' },
+  { icon: HeadphonesIcon, key: 'benefitSupport' },
+  { icon: MapPin, key: 'benefitOnSite' },
+  { icon: Activity, key: 'benefitMonitoring' },
+  { icon: Server, key: 'benefitArchitecture' },
+  { icon: Network, key: 'benefitFiber' },
+  { icon: Globe, key: 'benefitInternational' },
 ]
 
-function BenefitItem({ benefit, index }: { benefit: typeof benefits[0]; index: number }) {
+function BenefitItem({ benefit, index, language }: { benefit: typeof benefits[0]; index: number; language: 'fr' | 'en' }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
   const Icon = benefit.icon
+  const copy = translations[language]
 
   return (
     <motion.div
@@ -41,7 +44,7 @@ function BenefitItem({ benefit, index }: { benefit: typeof benefits[0]; index: n
         <Icon className="w-5 h-5 text-electric" />
       </div>
       <span className="text-foreground/80 font-medium group-hover:text-foreground transition-colors">
-        {benefit.text}
+        {copy[benefit.key as keyof typeof copy]}
       </span>
     </motion.div>
   )
@@ -141,6 +144,8 @@ function InfrastructureIllustration() {
 export function WhyLeonixSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+  const { language } = useLanguage()
+  const copy = translations[language]
 
   return (
     <section id="about" className="relative py-24 sm:py-32 overflow-hidden">
@@ -167,20 +172,19 @@ export function WhyLeonixSection() {
             transition={{ duration: 0.8 }}
           >
             <span className="inline-block text-electric text-sm font-semibold tracking-wider uppercase mb-4">
-              Why Choose Us
+              {copy.whyLabel}
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
-              Built for <span className="text-electric">Mission-Critical</span> Events
+              {copy.whyTitle}
             </h2>
             <p className="text-lg text-muted-foreground mb-10">
-              With years of experience supporting high-profile events across France and internationally, 
-              we deliver enterprise-grade connectivity that event organizers can rely on.
+              {copy.whySubtitle}
             </p>
 
             {/* Benefits list */}
             <div className="space-y-5">
               {benefits.map((benefit, index) => (
-                <BenefitItem key={benefit.text} benefit={benefit} index={index} />
+                <BenefitItem key={benefit.key} benefit={benefit} index={index} language={language} />
               ))}
             </div>
           </motion.div>

@@ -3,32 +3,36 @@
 import Link from 'next/link'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { Logo } from '@/components/logo'
+import { useLanguage } from '@/components/language-provider'
+import { translations } from '@/lib/translations'
 
 const footerLinks = {
   solutions: [
-    { label: 'Fiber Optic Internet', href: '#solutions' },
-    { label: '4G/5G Aggregation', href: '#solutions' },
-    { label: 'Satellite Internet', href: '#solutions' },
-    { label: 'Event WiFi', href: '#solutions' },
-    { label: 'VoIP Communications', href: '#solutions' },
-    { label: 'Security Systems', href: '#solutions' },
+    { key: 'serviceFiberTitle', href: '#solutions' },
+    { key: 'service4gTitle', href: '#solutions' },
+    { key: 'serviceSatelliteTitle', href: '#solutions' },
+    { key: 'serviceWifiTitle', href: '#solutions' },
+    { key: 'serviceVoipTitle', href: '#solutions' },
+    { key: 'serviceSecurityTitle', href: '#solutions' },
   ],
   industries: [
-    { label: 'Fashion & Luxury', href: '#industries' },
-    { label: 'Sports Events', href: '#industries' },
-    { label: 'Music Festivals', href: '#industries' },
-    { label: 'Corporate Events', href: '#industries' },
-    { label: 'Government', href: '#industries' },
+    { key: 'industryFashionTitle', href: '#industries' },
+    { key: 'industrySportsTitle', href: '#industries' },
+    { key: 'industryMusicTitle', href: '#industries' },
+    { key: 'industryCorporateTitle', href: '#industries' },
+    { key: 'industryGovernmentTitle', href: '#industries' },
   ],
   company: [
-    { label: 'About Us', href: '#about' },
-    { label: 'References', href: '#references' },
-    { label: 'Contact', href: '#contact' },
-    { label: 'Careers', href: '#' },
+    { key: 'footerAboutUs', href: '#about' },
+    { key: 'footerReferences', href: '#references' },
+    { key: 'footerContact', href: '#contact' },
+    { key: 'footerCareers', href: '#' },
   ],
 }
 
 export function Footer() {
+  const { language } = useLanguage()
+  const copy = translations[language]
   return (
     <footer className="section-dark relative bg-navy pt-16 pb-8">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-electric/40 to-transparent" />
@@ -41,7 +45,7 @@ export function Footer() {
               <Logo href="#home" />
             </div>
             <p className="text-white/60 mb-6 max-w-sm">
-              French telecom operator specializing in temporary internet and network infrastructure for professional events.
+              {copy.footerText}
             </p>
             <div className="space-y-3">
               <a href="mailto:contact@leonix-events.fr" className="flex items-center gap-3 text-white/60 hover:text-electric transition-colors">
@@ -61,12 +65,12 @@ export function Footer() {
 
           {/* Solutions */}
           <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Solutions</h4>
+            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">{copy.footerSolutions}</h4>
             <ul className="space-y-3">
               {footerLinks.solutions.map((link) => (
-                <li key={link.label}>
+                <li key={link.key}>
                   <Link href={link.href} className="text-white/60 hover:text-electric transition-colors text-sm">
-                    {link.label}
+                    {copy[link.key as keyof typeof copy]}
                   </Link>
                 </li>
               ))}
@@ -75,12 +79,12 @@ export function Footer() {
 
           {/* Industries */}
           <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Industries</h4>
+            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">{copy.footerIndustries}</h4>
             <ul className="space-y-3">
               {footerLinks.industries.map((link) => (
-                <li key={link.label}>
+                <li key={link.key}>
                   <Link href={link.href} className="text-white/60 hover:text-electric transition-colors text-sm">
-                    {link.label}
+                    {copy[link.key as keyof typeof copy]}
                   </Link>
                 </li>
               ))}
@@ -89,12 +93,12 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Company</h4>
+            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">{copy.footerCompany}</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
-                <li key={link.label}>
+                <li key={link.key}>
                   <Link href={link.href} className="text-white/60 hover:text-electric transition-colors text-sm">
-                    {link.label}
+                    {copy[link.key as keyof typeof copy]}
                   </Link>
                 </li>
               ))}
@@ -105,7 +109,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/40 text-sm">
-            © {new Date().getFullYear()} LEONIX EVENTS. All rights reserved.
+            © {new Date().getFullYear()} LEONIX EVENTS. {copy.footerCopyright}
           </p>
           <div className="flex items-center gap-4">
             <a

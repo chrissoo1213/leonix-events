@@ -64,17 +64,16 @@ export function Navbar() {
               ))}
             </div>
 
-            {/* CTA Button */}
-            {/* CTA Button */}
+            {/* Language + CTA Buttons */}
             <div className="hidden lg:flex items-center gap-4">
-
               <button
-                onClick={() =>
-                  changeLanguage(language === 'fr' ? 'en' : 'fr')
-                }
-                className="px-3 py-2 rounded-lg border border-white/20 text-white hover:bg-white/10 transition"
+                onClick={() => changeLanguage(language === 'fr' ? 'en' : 'fr')}
+                className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm font-medium text-foreground backdrop-blur-sm transition hover:bg-white/20"
+                aria-label="Switch language"
               >
-                {language === 'fr' ? 'EN' : 'FR'}
+                <span className={language === 'fr' ? 'text-electric' : 'text-foreground/70'}>FR</span>
+                <span className="mx-1 text-foreground/50">/</span>
+                <span className={language === 'en' ? 'text-electric' : 'text-foreground/70'}>EN</span>
               </button>
 
               <Link
@@ -132,7 +131,20 @@ export function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
+                  className="flex flex-col items-center gap-3"
                 >
+                  <button
+                    onClick={() => {
+                      changeLanguage(language === 'fr' ? 'en' : 'fr')
+                      setIsMobileMenuOpen(false)
+                    }}
+                    className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm font-medium text-foreground backdrop-blur-sm transition hover:bg-white/20"
+                    aria-label="Switch language"
+                  >
+                    <span className={language === 'fr' ? 'text-electric' : 'text-foreground/70'}>FR</span>
+                    <span className="mx-1 text-foreground/50">/</span>
+                    <span className={language === 'en' ? 'text-electric' : 'text-foreground/70'}>EN</span>
+                  </button>
                   <Link
                     href="#contact"
                     onClick={() => setIsMobileMenuOpen(false)}

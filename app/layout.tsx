@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: 'LEONIX EVENTS | Temporary Internet Solutions for Mission-Critical Events',
     description: 'Professional telecom operator providing temporary connectivity solutions for events in France and internationally.',
     type: 'website',
-    locale: 'en_US',
+    locale: 'fr_FR',
   },
   twitter: {
     card: 'summary_large_image',
@@ -52,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} bg-background`}>
+    <html lang="fr" className={`${inter.variable} ${spaceGrotesk.variable} bg-background`}>
       <LanguageProvider>
       <body className="font-sans antialiased bg-background text-foreground overflow-x-hidden">
         {children}

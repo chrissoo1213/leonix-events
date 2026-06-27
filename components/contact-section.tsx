@@ -3,12 +3,16 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Send, MapPin, Calendar, Wifi, User, Building2, Mail, Phone } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
+import { translations } from '@/lib/translations'
 
 export function ContactSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const { language } = useLanguage()
+  const copy = translations[language]
 
  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault()
@@ -42,7 +46,7 @@ export function ContactSection() {
     setIsSubmitted(true)
     form.reset()
   } catch (error) {
-    alert("Failed to send request. Please try again.")
+    alert(copy.requestFailed)
     console.error(error)
   } finally {
     setIsSubmitting(false)
@@ -65,13 +69,13 @@ export function ContactSection() {
           className="text-center mb-16"
         >
           <span className="inline-block text-electric text-sm font-semibold tracking-wider uppercase mb-4">
-            Get Started
+            {copy.contactLabel}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
-            Request Your Connectivity Plan
+            {copy.contactTitle}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Tell us about your event and we&apos;ll design a custom connectivity solution tailored to your needs.
+            {copy.contactSubtitle}
           </p>
         </motion.div>
 
@@ -91,15 +95,15 @@ export function ContactSection() {
               <div className="w-20 h-20 rounded-full bg-electric/20 flex items-center justify-center mx-auto mb-6">
                 <Send className="w-10 h-10 text-electric" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">Request Received!</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4">{copy.requestReceivedTitle}</h3>
               <p className="text-muted-foreground mb-6">
-                Thank you for your interest. Our team will review your requirements and contact you within 24 hours.
+                {copy.requestReceivedText}
               </p>
               <button
                 onClick={() => setIsSubmitted(false)}
                 className="px-6 py-3 glass text-foreground font-medium rounded-lg hover:border-electric/30 transition-colors"
               >
-                Submit Another Request
+                {copy.submitAnotherRequest}
               </button>
             </motion.div>
           ) : (
@@ -108,7 +112,7 @@ export function ContactSection() {
                 {/* Name */}
                 <div className="relative">
                   <label htmlFor="name" className="block text-sm font-medium text-foreground/80 mb-2">
-                    Full Name *
+                    {copy.fullName}
                   </label>
                   <div className="relative">
                     <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -126,7 +130,7 @@ export function ContactSection() {
                 {/* Company */}
                 <div className="relative">
                   <label htmlFor="company" className="block text-sm font-medium text-foreground/80 mb-2">
-                    Company *
+                    {copy.company}
                   </label>
                   <div className="relative">
                     <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -144,7 +148,7 @@ export function ContactSection() {
                 {/* Email */}
                 <div className="relative">
                   <label htmlFor="email" className="block text-sm font-medium text-foreground/80 mb-2">
-                    Email Address *
+                    {copy.emailAddress}
                   </label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -162,7 +166,7 @@ export function ContactSection() {
                 {/* Phone */}
                 <div className="relative">
                   <label htmlFor="phone" className="block text-sm font-medium text-foreground/80 mb-2">
-                    Phone Number
+                    {copy.phoneNumber}
                   </label>
                   <div className="relative">
                     <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -179,7 +183,7 @@ export function ContactSection() {
                 {/* Event Location */}
                 <div className="relative">
                   <label htmlFor="location" className="block text-sm font-medium text-foreground/80 mb-2">
-                    Event Location *
+                    {copy.eventLocation}
                   </label>
                   <div className="relative">
                     <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -197,7 +201,7 @@ export function ContactSection() {
                 {/* Event Date */}
                 <div className="relative">
                   <label htmlFor="date" className="block text-sm font-medium text-foreground/80 mb-2">
-                    Event Date *
+                    {copy.eventDate}
                   </label>
                   <div className="relative">
                     <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -214,7 +218,7 @@ export function ContactSection() {
                 {/* Requirements */}
                 <div className="sm:col-span-2">
                   <label htmlFor="requirements" className="block text-sm font-medium text-foreground/80 mb-2">
-                    Connectivity Requirements *
+                    {copy.connectivityRequirements}
                   </label>
                   <div className="relative">
                     <Wifi className="absolute left-4 top-4 w-5 h-5 text-muted-foreground" />
@@ -238,7 +242,7 @@ export function ContactSection() {
                   className="group relative w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-electric text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(227,6,19,0.35)] hover:bg-electric-dark disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   <span className="relative z-10">
-                    {isSubmitting ? 'Sending...' : 'Request My Connectivity Plan'}
+                    {isSubmitting ? copy.sending : copy.submitButton}
                   </span>
                   {!isSubmitting && <Send className="w-5 h-5 relative z-10 transition-transform group-hover:translate-x-1" />}
                 </button>
